@@ -25,7 +25,6 @@ export class AppController {
   async getUser(
     @Param('id') id: string
   ): Promise<Partial<UserModel>> {
-    console.log(111, id)
     return this.userService.getUser(id);
   }
 }

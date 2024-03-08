@@ -13,9 +13,12 @@ interface IUserData {
 const User = () => {
   const id = useSelector((state: RootState) => state.form.userId)
   const [user, setUser] = useState<null | IUserData>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchUserData = async () => {
+    if (!id) {
+      return
+    }
     setLoading(true);
     try {
       const { data } = await axios.get(`http://localhost:3000/api/getUser/${id}`);
@@ -28,7 +31,7 @@ const User = () => {
 
   useEffect(() => {
     fetchUserData();
-  }, [])
+  }, [id])
 
   if (loading) {
     return <CircularProgress />
